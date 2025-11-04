@@ -1,0 +1,151 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+/* ========================
+   Fondo color miel (sin imagen)
+======================== */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ffcc33, #ffb703, #fb8500); /* tonos miel */
+}
+
+/* ========================
+   Caja de login
+======================== */
+.wrapper {
+    width: 420px;
+    background: rgba(255, 165, 0, 0.8); /* miel translúcido */
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px) saturate(200%);
+    -webkit-backdrop-filter: blur(10px) saturate(200%);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    color: #fff;
+    border-radius: 12px;
+    padding: 30px 40px;
+    transition: 0.3s ease-in-out;
+}
+
+.wrapper:hover {
+    transform: scale(1.01);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+}
+
+.wrapper h1 {
+    font-size: 34px;
+    text-align: center; 
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+/* ========================
+   Inputs
+======================== */
+.wrapper .input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 25px 0;
+}
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 40px;
+    font-size: 16px;
+    color: #fff;
+    padding: 20px 45px 20px 20px;
+    outline: none;
+    box-shadow: inset 0 0 8px rgba(255,255,255,0.2);
+}
+
+.input-box input::placeholder {
+    color: #eee;
+    font-weight: 300;
+}
+
+.input-box i {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: #fff;
+}
+
+/* ========================
+   Recordarme / Olvidar
+======================== */
+.wrapper .remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin: -10px 0 15px;
+    color: #fff;
+}
+
+.remember-forgot label input {
+    accent-color: #fff;
+    margin-right: 3px;
+}
+
+.remember-forgot a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.remember-forgot a:hover {
+    text-decoration: underline;
+}
+
+/* ========================
+   Botón
+======================== */
+.wrapper .btn {
+    width: 100%;
+    height: 45px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.wrapper .btn:hover {
+    background: #f1f1f1;
+}
+
+/* ========================
+   Registrar link
+======================== */
+.wrapper .register-link {
+    font-size: 14.5px;
+    text-align: center;
+    margin: 20px 0 15px;
+}
+
+.wrapper .register-link a {
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.wrapper .register-link a:hover {
+    text-decoration: underline;
+}

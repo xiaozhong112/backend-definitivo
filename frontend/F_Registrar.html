@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>HoneySweeat | Registrar</title>
+
+    <!-- Mantén tu CSS de registro (mismo estilo de wrapper/card) -->
+    <link rel="stylesheet" href="F_Registrar.css" />
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"/>
+
+    <style>
+      :root{
+        --gold:#ffc30b;
+        --brown:#4b2e00;
+      }
+      /* Navbar píldora (igual que en login) */
+      .navbar-pill{
+        position: fixed; top: 12px; left: 50%; transform: translateX(-50%);
+        background: var(--gold); color: var(--brown);
+        padding: 10px 16px; border-radius: 10px;
+        display: flex; align-items: center; gap: 14px;
+        box-shadow: 0 6px 18px rgba(0,0,0,.15); z-index: 50; font-weight: 600;
+      }
+      .navbar-pill a{ color: var(--brown); text-decoration: none; }
+      .navbar-pill a:hover{ opacity: .85; }
+      .dot{ opacity:.5; }
+
+      /* Footer fijo abajo */
+      .footer-bar{
+        position: fixed; bottom: 0; left: 0; right: 0;
+        background: var(--gold); color: var(--brown);
+        text-align: center; padding: 10px 12px; font-weight: 600;
+        box-shadow: 0 -6px 18px rgba(0,0,0,.1); z-index: 40;
+      }
+
+      /* Despegar wrapper para que no tape navbar/footer */
+      .wrapper{ margin-top: 70px; margin-bottom: 70px; }
+
+      /* Alert compacto (sobre tu card) */
+      .alert{
+        display:none; background: rgba(0,0,0,.35); color:#fff;
+        border-radius: 8px; padding:10px 12px; margin-bottom: 8px; text-align:center;
+      }
+      .alert.show{ display:block; }
+
+      /* Tips de validación */
+      .hint{ color:#fff; font-size: 12px; opacity:.9; margin-top:-8px; margin-bottom:10px; }
+      .input-box i{ color:#fff; }
+    </style>
+  </head>
+  <body>
+    <!-- NAVBAR -->
+    <div class="navbar-pill">
+      <a href="Frontend.html"><strong>HoneySweeat</strong></a>
+      <span class="dot">·</span>
+      <a href="F_Loging.html">Login</a>
+      <span class="dot">·</span>
+      <a href="F_Registrar.html">Registrar</a>
+      <a href="F_Carrito.html" title="Carrito" style="margin-left:8px;">
+        <img src="img/carrito2.png" alt="Carrito" width="26" height="26" style="vertical-align:middle;border-radius:50%;">
+      </a>
+    </div>
+
+    <!-- CARD REGISTRO -->
+    <div class="wrapper">
+      <div id="alertBox" class="alert"></div>
+
+      <form id="registerForm" novalidate>
+        <h1>Registrar</h1>
+
+        <div class="input-box">
+          <input type="text" id="nameRegister" placeholder="Nombre" required />
+          <i class="bx bxs-user"></i>
+        </div>
+
+        <div class="input-box">
+          <input type="email" id="emailRegister" placeholder="Email" required />
+          <i class="bx bx-envelope"></i>
+        </div>
+
+        <div class="input-box">
+          <input type="password" id="passRegister" placeholder="Contraseña (min 6)" minlength="6" required />
+          <i class="bx bxs-lock-alt"></i>
+        </div>
+        <div class="hint">La contraseña debe tener al menos 6 caracteres.</div>
+
+        <div class="input-box">
+          <input type="password" id="passConfirm" placeholder="Confirmar contraseña" required />
+          <i class="bx bxs-lock-alt"></i>
+        </div>
+
+        <button type="submit" class="btn">Registrar</button>
+
+        <div class="register-link">
+          ¿Ya tienes cuenta? <a class="nav-link" href="F_Loging.html">Inicia sesión</a>
+        </div>
+      </form>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer-bar">
+      HoneySweeat © 2025 — Miel natural
+    </div>
+
+    <script>
+      // ===== Helper de alertas
+      const alertBox = document.getElementById("alertBox");
+      const showError = (msg)=>{ alertBox.textContent = msg; alertBox.classList.add("show"); };
+      const hideError = ()=>{ alertBox.classList.remove("show"); alertBox.textContent = ""; };
+
+      // Si sirves el frontend con el mismo backend, deja vacío:
+      const API_BASE = "";
+      // Si usas Live Server: const API_BASE = "http://localhost:4000";
+
+      document.getElementById("registerForm").addEventListener("submit", async (e)=>{
+        e.preventDefault();
+        hideError();
+
+        const name = document.getElementById("nameRegister").value.trim();
+        const email = document.getElementById("emailRegister").value.trim();
+        const pass = document.getElementById("passRegister").value;
+        const confirm = document.getElementById("passConfirm").value;
+
+        // Validaciones rápidas
+        if(!name || !email || !pass || !confirm){
+          showError("Completa todos los campos.");
+          return;
+        }
+        const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        if(!emailOk){ showError("Correo inválido."); return; }
+
+        if(pass.length < 6){
+          showError("La contraseña debe tener al menos 6 caracteres.");
+          return;
+        }
+        if(pass !== confirm){
+          showError("Las contraseñas no coinciden.");
+          return;
+        }
+
+        try{
+          const resp = await fetch(`${API_BASE}/api/auth/register`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, email, password: pass })
+          });
+
+          if(!resp.ok){
+            const err = await resp.json().catch(()=>({error:"Error desconocido"}));
+            throw new Error(err.error || "No se pudo registrar");
+          }
+
+          const data = await resp.json(); // { token, user:{id,name,email,role} }
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("user", JSON.stringify(data.user));
+          localStorage.setItem("userRole", data.user?.role || "user");
+
+          // Redirección post-registro por rol
+          if(data.user?.role === "admin"){
+            location.href = "F_Loging_Admin.html";
+          }else{
+            location.href = "Frontend.html";
+          }
+        }catch(e){
+          showError(e.message || "No se pudo registrar");
+        }
+      });
+    </script>
+
+    <script src="js/register.js" defer></script>
+
+  </body>
+</html>

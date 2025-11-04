@@ -1,0 +1,10 @@
+{
+
+  "css.lint.vendorPrefix": "ignore",
+  "css.lint.unknownProperties": "ignore",
+
+  "[css]": { "editor.formatOnSave": false },
+
+  "files.exclude": { "**/frontend/vendor/**": true },
+  "search.exclude": { "**/frontend/vendor/**": true }
+}

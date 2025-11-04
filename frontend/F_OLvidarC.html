@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>HoneySweeat - Cambio de Contraseña</title>
+    <link rel="stylesheet" href="F_OLvidarC.css" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="wrapper">
+      <form onsubmit="cambiarContrasena(event)">
+        <h1>Cambio de Contraseña</h1>
+
+        <div class="input-box">
+          <input type="email" id="emailCambio" placeholder="Email" required />
+          <i class="bx bxs-user"></i>
+        </div>
+
+        <div class="input-box">
+          <input
+            type="password"
+            id="nuevaPass"
+            placeholder="Nueva Contraseña"
+            required
+          />
+          <i class="bx bxs-lock-alt"></i>
+        </div>
+
+        <div class="input-box">
+          <input
+            type="password"
+            id="confirmarPass"
+            placeholder="Confirmar Contraseña"
+            required
+          />
+          <i class="bx bxs-lock-alt"></i>
+        </div>
+
+        <button type="submit" class="btn">Confirmar cambio</button>
+      </form>
+    </div>
+
+    <script>
+      function cambiarContrasena(event) {
+        event.preventDefault(); // Evita recargar la página
+
+        let email = document.getElementById("emailCambio").value;
+        let nuevaPass = document.getElementById("nuevaPass").value;
+        let confirmarPass = document.getElementById("confirmarPass").value;
+
+        // Validaciones
+        if (nuevaPass !== confirmarPass) {
+          alert("Las contraseñas no coinciden. Intenta nuevamente.");
+          return;
+        }
+
+        if (nuevaPass.length < 6) {
+          alert("La nueva contraseña debe tener al menos 6 caracteres.");
+          return;
+        }
+
+        // Simulación de cambio exitoso
+        if (email === "cliente1@sandwish.cl") {
+          alert("Contraseña actualizada correctamente ✅");
+          location.href = "F_Loging.html"; // asegúrate que el nombre del archivo sea este exacto
+        } else {
+          alert("El correo no está registrado ❌");
+        }
+      }
+    </script>
+  </body>
+</html>

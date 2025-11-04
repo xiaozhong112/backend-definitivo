@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Medio de Pago</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f8f9fa;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .container {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        width: 400px;
+      }
+      .title {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+      .title span {
+        background: #0096ff;
+        color: #fff;
+        font-weight: bold;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 10px;
+      }
+      .options {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+      .option {
+        display: flex;
+        align-items: center;
+        background: #fff;
+        padding: 10px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.2s;
+        border: 1px solid #ddd;
+      }
+      .option:hover {
+        background: #f0f0f0;
+      }
+      .option input {
+        margin-right: 10px;
+      }
+      .btn-aceptar {
+        display: block;
+        width: 100%;
+        padding: 12px;
+        background: #0096ff;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      .btn-aceptar:hover {
+        background: #007acc;
+      }
+      .resultado {
+        margin-top: 15px;
+        font-weight: bold;
+        text-align: center;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="title">
+        <h3>Elige un medio de pago</h3>
+      </div>
+
+      <div class="options">
+        <label class="option">
+          <input type="radio" name="pago" value="Banco Estado" />
+          Banco Estado
+        </label>
+        <label class="option">
+          <input type="radio" name="pago" value="Banco Santander" />
+          Banco Santander
+        </label>
+        <label class="option">
+          <input type="radio" name="pago" value="Banco Falabella" />
+          Banco Falabella
+        </label>
+        <label class="option">
+          <input type="radio" name="pago" value="Webpay" />
+          Webpay
+        </label>
+      </div>
+
+      <button class="btn-aceptar" onclick="mostrarSeleccion()">Aceptar</button>
+
+      <div class="resultado" id="resultado"></div>
+    </div>
+  </body>
+</html>

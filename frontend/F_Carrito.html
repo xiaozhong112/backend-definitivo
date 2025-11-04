@@ -1,0 +1,133 @@
+<!-- frontend/F_Carrito.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Carrito de Compras | HoneySweeat</title>
+
+  <!-- Bootstrap local -->
+  <link href="/vendor/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Boxicons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"/>
+
+  <style>
+    :root{ --gold:#ffc30b; --brown:#4b2e00; }
+
+    body{ background:#f5f6f7; color:var(--brown); }
+
+    /* Navbar igual al home */
+    .navbar-custom{ background:var(--gold); }
+    .navbar-custom .navbar-brand{ font-weight:800; color:var(--brown); }
+    .navbar-custom .nav-link{ color:var(--brown); font-weight:600; }
+    .navbar-custom .nav-link:hover{ color:#000; }
+    .avatar{ width:40px; height:40px; }
+
+    /* Carrito */
+    .cart-container{ margin:30px auto; max-width:1200px; }
+    .cart-card,.cart-summary{ background:#fff; border-radius:10px; padding:20px; box-shadow:0 2px 5px rgba(0,0,0,.1); }
+    .btn-qty{ background:#f40808; color:#fff; border:0; font-weight:700; border-radius:5px; width:35px; height:35px; }
+    .btn-qty:hover{ background:#2d6ab4; }
+    .qty-num{ font-weight:700; min-width:30px; text-align:center; }
+    .btn-checkout{ display:block; text-align:center; background:#f40808; color:#fff; border:0; font-weight:700; border-radius:25px; padding:12px; width:100%; text-decoration:none; }
+    .btn-checkout:hover{ background:#2d6ab4; color:#fff; }
+    .item-img{ width:120px; height:120px; object-fit:cover; border-radius:8px; }
+    .empty{ padding:40px; text-align:center; color:#666; }
+
+    /* Footer */
+    .footer{ background:#4b2e00; color:#ffc30b; padding:16px; text-align:center; margin-top:30px; }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-sm navbar-custom">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="Frontend.html">HoneySweeat</a>
+
+      <ul class="navbar-nav ms-auto align-items-center" id="navAuthZone">
+        <li class="nav-item"><a class="nav-link" href="F_Loging.html">Login</a></li>
+        <li class="nav-item ms-2"><a class="nav-link" href="F_Registrar.html">Registrar</a></li>
+      </ul>
+
+      <!-- Menú usuario -->
+      <div class="dropdown ms-3 d-none" id="userMenu">
+        <a href="#" id="dropdownUser" data-bs-toggle="dropdown">
+          <img src="img/persona.png" class="rounded-pill avatar" alt="Usuario"/>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><h6 class="dropdown-header" id="userNameHdr">Mi cuenta</h6></li>
+          <li><a class="dropdown-item" href="F_Perfil.html"><i class='bx bxs-user'></i> Perfil</a></li>
+          <li><a class="dropdown-item" href="F_EditarD.html"><i class='bx bxs-edit'></i> Editar dirección</a></li>
+          <li><a class="dropdown-item" href="F_Direccion.html"><i class='bx bxs-map'></i> Dirección</a></li>
+          <li><a class="dropdown-item" href="F_pedidos.html"><i class='bx bxs-shopping-bag'></i> Mis pedidos</a></li>
+          <li><hr></li>
+          <li><a class="dropdown-item d-none" id="adminPanelLink" href="F_Loging_Admin.html">
+            <i class='bx bxs-dashboard'></i> Panel admin
+          </a></li>
+          <li><a class="dropdown-item text-danger" id="logoutBtn"><i class='bx bx-log-out'></i> Cerrar sesión</a></li>
+        </ul>
+      </div>
+
+      <!-- carrito -->
+      <a class="ms-3" href="F_Carrito.html" aria-label="Carrito">
+        <img src="img/carrito2.png" style="width:40px" alt="Carrito"/>
+      </a>
+    </div>
+  </nav>
+
+  <!-- CONTENIDO -->
+  <div class="container cart-container">
+    <div class="row g-4">
+      <!-- Carrito -->
+      <div class="col-lg-8">
+        <div class="cart-card">
+          <h4>
+            Cesta
+            <small class="text-muted">(<span id="cartCount">0</span> producto<span id="cartCountS">s</span>)</small>
+          </h4>
+          <hr/>
+          <div class="form-check mb-3">
+            <input id="chkAll" class="form-check-input" type="checkbox" checked />
+            <label class="form-check-label" for="chkAll">Seleccionar todos los artículos</label>
+          </div>
+          <hr/>
+          <div id="cartList"></div>
+          <div id="emptyState" class="empty d-none">Tu carrito está vacío 🐝</div>
+        </div>
+      </div>
+
+      <!-- Resumen -->
+      <div class="col-lg-4">
+        <div class="cart-summary">
+          <h5 class="mb-3">Resumen</h5>
+          <div class="d-flex justify-content-between mb-2">
+            <span>Total de artículos</span><span id="sumItems">$0</span>
+          </div>
+          <div class="d-flex justify-content-between mb-2 text-danger">
+            <span>Descuento</span><span id="sumDiscount">-$0</span>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
+            <span>Subtotal</span><span id="sumSubtotal">$0</span>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
+            <span>Envío</span><span id="sumShipping">$0</span>
+          </div>
+          <hr/>
+          <div class="d-flex justify-content-between fw-bold mb-3">
+            <span>Estimación total:</span><span id="sumTotal">$0</span>
+          </div>
+          <a id="btnCheckout" href="F_pagar.html" class="btn-checkout disabled" aria-disabled="true">Continuar (0)</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">HoneySweeat © 2025 — Miel natural</footer>
+
+  <script src="/vendor/bootstrap.bundle.min.js"></script>
+  <script src="/js/nav.js" defer></script>
+  <script src="/js/cart.js" defer></script>
+</body>
+</html>

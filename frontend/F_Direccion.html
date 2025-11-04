@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Direcciones de entrega</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+     .navbar-custom {
+        background-color: #ffc30b; /* tono miel */
+      }
+    body {
+      background: #f9f9f9;
+    }
+    .direccion-card {
+      background: #fff;
+      padding: 15px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .direccion-header {
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 5px;
+    }
+    .direccion-detalle {
+      font-size: 15px;
+      line-height: 1.4;
+      color: #000;
+    }
+    .direccion-detalle strong {
+      font-weight: bold;
+    }
+    .direccion-actions a {
+      font-size: 14px;
+      margin-right: 15px;
+      text-decoration: none;
+    }
+    .direccion-actions a:hover {
+      text-decoration: underline;
+    }
+    .btn-agregar {
+      background: #d90000;
+      color: white;
+      border-radius: 25px;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      width: 100%;
+      border: none;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-custom">
+      <div class="container-fluid">
+        <!-- Nombre -->
+        <a class="navbar-brand" href="Frontend.html">HoneySweeat</a>
+
+        <!-- Íconos usuario + carrito -->
+        <form class="d-flex align-items-center ms-auto">
+          <ul class="navbar-nav">
+          <a class="navbar-brand" href="F_Carrito.html">
+            <img src="carrito2.png" style="width: 40px" class="rounded-pill" />
+          </a>
+        </form>
+      </div>
+    </nav>
+  <div class="container py-3">
+    <h5 class="mb-3">Dirección de entrega <a href="#" class="float-end text-primary">Editar</a></h5>
+
+    <!-- Dirección 1 -->
+    <div class="direccion-card">
+      <div class="d-flex">
+        <i class="bi bi-geo-alt me-2 text-danger"></i>
+        <div>
+          <div class="direccion-detalle">
+            <strong>Antonio Varas 1234</strong><br>
+            departamento 805<br>
+            Providencia, Metropolitana de Santiago, Chile, 8370117
+          </div>
+          <div class="direccion-actions mt-2">
+            <a href="F_EditarD.html" class="text-primary">Editar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dirección 2 -->
+    <div class="direccion-card">
+      <div class="d-flex">
+        <i class="bi bi-geo-alt me-2 text-danger"></i>
+        <div>
+          <div class="direccion-detalle">
+            <strong>Antonio varas 1235</strong><br>
+            Providencia, Metropolitana de Santiago, Chile, 7500000
+          </div>
+          <div class="direccion-actions mt-2">
+            <a href="#" class="text-primary">Editar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dirección 3 -->
+    <div class="direccion-card">
+      <div class="d-flex">
+        <i class="bi bi-geo-alt me-2 text-danger"></i>
+        <div>
+          <div class="direccion-detalle">
+            <strong>Antonio baras 666</strong><br>
+            Providencia, Metropolitana de Santiago, Chile, 9250000
+          </div>
+          <div class="direccion-actions mt-2">
+            <a href="#" class="text-primary">Editar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botón agregar -->
+    <button class="btn-agregar">Agregar nueva dirección</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

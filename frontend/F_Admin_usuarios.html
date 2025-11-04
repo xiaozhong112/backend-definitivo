@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>HoneySweeat - Admin | Usuarios</title>
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="/vendor/bootstrap.min.css">
+  <script src="/vendor/bootstrap.bundle.min.js" defer></script>
+  <!-- Boxicons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"/>
+
+  <style>
+    body { background:#f9f4e5; margin:0; padding:0; }
+
+    /* Navbar */
+    .navbar-admin{ background:#4b2e00; }
+    .navbar-admin .navbar-brand,.navbar-admin .navbar-text{ color:#ffc30b; }
+    .navbar-admin .btn{ border-color:#ffc30b; color:#ffc30b; }
+    .navbar-admin .btn:hover{ background:#ffc30b; color:#4b2e00; }
+
+    /* Sidebar */
+    .sidebar{ background:#fff; min-height:calc(100vh - 56px); box-shadow:0 0 10px rgba(0,0,0,.1); padding:0; }
+    .sidebar-sticky{ position:sticky; top:56px; height:calc(100vh - 56px); padding-top:20px; overflow-y:auto; }
+    .sidebar .nav-link{ color:#4b2e00; padding:12px 20px; border-bottom:1px solid #eee; display:flex; align-items:center; transition:.2s; }
+    .sidebar .nav-link i{ margin-right:10px; font-size:18px; }
+    .sidebar .nav-link:hover{ background:#ffe08a; color:#4b2e00; }
+    .sidebar .nav-link.active{ background:#ffc30b !important; color:#4b2e00 !important; font-weight:bold; }
+
+    /* Main */
+    .main-content{ padding:20px; }
+
+    .card-admin{ background:#fff; border-radius:15px; overflow:hidden; box-shadow:0 6px 15px rgba(0,0,0,.15); border:none; margin-bottom:20px; }
+    .card-header-admin{ background:#ffc30b; color:#4b2e00; padding:15px 20px; font-weight:bold; display:flex; align-items:center; justify-content:space-between; }
+    .card-body-admin{ padding:20px; }
+
+    .grid-2{ display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+    @media (max-width: 768px){ .grid-2{ grid-template-columns:1fr; } }
+
+    .form-label{ color:#4b2e00; font-weight:600; }
+    .form-check-label{ color:#4b2e00; }
+
+    .table-admin { width:100%; border-collapse:collapse; }
+    .table-admin th{ background:#f9f4e5; color:#4b2e00; padding:12px 15px; text-align:left; border-bottom:2px solid #ffc30b; }
+    .table-admin td{ padding:12px 15px; border-bottom:1px solid #eee; vertical-align:middle; }
+    .table-admin tr:hover{ background:#f9f4e5; }
+
+    .actions-col{ white-space:nowrap; }
+    .btn.small{ padding:6px 10px; font-size:.9rem; }
+    .btn.icon i{ margin-right:6px; }
+    .btn.danger{ background:#dc3545; color:#fff; border:none; }
+    .btn.ghost{ background:transparent; border:1px solid #4b2e00; color:#4b2e00; }
+    .btn.ghost:hover{ background:#4b2e00; color:#ffc30b; }
+
+    /* Alerts */
+    .alert{ display:none; border-radius:10px; margin-bottom:12px; padding:10px 14px; }
+    .alert.show{ display:block; }
+    .alert.ok{ background:#e6ffed; color:#127c35; border:1px solid #7ee2a8; }
+    .alert.err{ background:#ffecec; color:#b00020; border:1px solid #ff9aa2; }
+  </style>
+</head>
+
+<!-- Marca activo el menú -->
+<body data-page="users">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-sm navbar-admin">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="Frontend.html">HoneySweeat - Admin</a>
+      <div class="ms-auto">
+        <span class="navbar-text me-3">Administrador</span>
+        <button class="btn btn-sm" id="logoutBtn">Cerrar Sesión</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <aside class="col-md-3 col-lg-2 sidebar">
+        <div class="sidebar-sticky">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link" href="F_Loging_Admin.html" data-link="dashboard">
+                <i class='bx bxs-dashboard'></i> Dashboard
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="F_Gestion_producto.html" data-link="products">
+                <i class='bx bxs-package'></i> Productos
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="F_Admin_usuarios.html" data-link="users">
+                <i class='bx bxs-user'></i> Usuarios
+              </a>
+            </li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- Main -->
+      <main class="col-md-9 col-lg-10 main-content">
+
+        <!-- Alerts -->
+        <div id="alertOk" class="alert ok" role="alert"></div>
+        <div id="alertErr" class="alert err" role="alert"></div>
+
+        <!-- Formulario Crear/Editar Usuario -->
+        <section class="card-admin">
+          <div class="card-header-admin">
+            <h5 id="formTitle"><i class='bx bx-user-plus'></i> Nuevo usuario</h5>
+            <div>
+              <button class="btn btn-sm btn-secondary me-2" id="btnCancelEdit" style="display:none;">
+                <i class='bx bx-x-circle'></i> Cancelar edición
+              </button>
+              <button class="btn btn-sm btn-outline-dark" id="btnReset">
+                <i class='bx bx-reset'></i> Limpiar
+              </button>
+            </div>
+          </div>
+          <div class="card-body-admin">
+            <form id="userForm">
+              <input type="hidden" id="editingId" value=""/>
+
+              <div class="grid-2">
+                <div>
+                  <label class="form-label" for="uName">Nombre</label>
+                  <input class="form-control" id="uName" type="text" placeholder="Xiao Zhong" required>
+                </div>
+
+                <div>
+                  <label class="form-label" for="uEmail">Email</label>
+                  <input class="form-control" id="uEmail" type="email" placeholder="correo@honeysweeat.cl" required>
+                </div>
+
+                <div>
+                  <label class="form-label" for="uPassword">Contraseña</label>
+                  <input class="form-control" id="uPassword" type="password" placeholder="Mín. 6 caracteres">
+                  <small class="text-muted">Si editas y dejas vacío, se mantiene la actual.</small>
+                </div>
+
+                <div>
+                  <label class="form-label" for="uRole">Rol</label>
+                    <select class="form-select" id="uRole" required>
+                    <option value="user">Cliente</option>
+                    <option value="admin">Administrador</option>
+                    </select>
+                </div>
+
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="uActive" checked>
+                  <label class="form-check-label" for="uActive">Activo</label>
+                </div>
+              </div>
+
+              <div class="mt-3 d-flex justify-content-end">
+                <button type="submit" class="btn btn-success">
+                  <i class='bx bx-save'></i> Guardar
+                </button>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <!-- Tabla Usuarios -->
+        <section class="card-admin">
+          <div class="card-header-admin">
+            <h5 id="usersTitle"><i class='bx bx-list-ul'></i> Usuarios</h5>
+            <div>
+              <button class="btn btn-sm btn-outline-dark me-2" id="btnToggleView">
+                <i class='bx bx-hide'></i> Ver inactivos
+              </button>
+              <button class="btn btn-sm btn-outline-dark" id="btnReload">
+                <i class='bx bx-refresh'></i> Recargar
+              </button>
+            </div>
+          </div>
+          <div class="card-body-admin">
+            <div class="table-responsive">
+              <table class="table-admin">
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Rol</th>
+                    <th>Estado</th>
+                    <th class="actions-col">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="usersBody">
+                  <!-- filas dinámicas -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Scripts (externos, CSP-friendly) -->
+  <script src="js/admin.js" defer></script>
+  <script src="js/adminUsuarios.js" defer></script>
+</body>
+</html>

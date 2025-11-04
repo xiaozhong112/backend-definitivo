@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Editar Perfil</title>
+    <style>
+      :root {
+        --border: #ddd;
+        --muted: #777;
+        --primary: #111827;
+        --primary-text: #fff;
+        font-family: "Inter", system-ui, sans-serif;
+      }
+      body {
+        margin: 0;
+        background: #fafafa;
+        color: #111;
+      }
+      .screen {
+        max-width: 520px;
+        margin: 0 auto;
+        padding: 16px;
+      }
+      .title {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 16px;
+        text-align: center;
+      }
+      .label {
+        font-weight: 600;
+        margin: 14px 0 6px;
+      }
+      .input,
+      select {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        font-size: 16px;
+        box-sizing: border-box;
+      }
+      .btn {
+        width: 100%;
+        margin-top: 20px;
+        padding: 14px;
+        background: var(--primary);
+        color: var(--primary-text);
+        border: none;
+        border-radius: 12px;
+        font-size: 18px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s ease;
+      }
+      .btn:hover {
+        background: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="screen">
+      <div class="title">Editar Perfil</div>
+
+      <form id="perfilForm">
+        <!-- Email -->
+        <div class="label">Dirección de email</div>
+        <input
+          class="input"
+          type="email"
+          name="email"
+          value="acb@gmail.com"
+          placeholder="ejemplo@correo.com"
+        />
+
+        <!-- Apodo -->
+        <div class="label">Apodo</div>
+        <input
+          class="input"
+          type="text"
+          name="apodo"
+          value="Ernesto"
+          placeholder="Tu apodo"
+        />
+
+        <!-- Número de teléfono -->
+        <div class="label">Número de teléfono</div>
+        <input
+          class="input"
+          type="tel"
+          name="telefono"
+          value="+56 912345678"
+          placeholder="Ej: +56 9 12345678"
+        />
+
+        <!-- Sexo -->
+        <div class="label">Sexo</div>
+        <select name="sexo" class="input">
+          <option selected>-</option>
+          <option>Masculino</option>
+          <option>Femenino</option>
+          <option>Prefiero no decirlo</option>
+        </select>
+
+        <!-- País / región -->
+        <div class="label">País / región</div>
+        <select name="pais" class="input">
+          <option selected>Chile</option>
+          <option>Argentina</option>
+          <option>Perú</option>
+          <option>Colombia</option>
+          <option>México</option>
+          <option>Otro</option>
+        </select>
+
+        <!-- Botón -->
+        <button type="submit" class="btn">Guardar configuración</button>
+      </form>
+    </div>
+
+    <script>
+      // Captura el envío del formulario
+      document
+        .getElementById("perfilForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Evita que se recargue la página
+
+          alert("✅ Configuración guardada correctamente");
+          location.href = "F_Perfil.html"
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Editar Dirección</title>
+    <style>
+      :root {
+        --border: #ddd;
+        --muted: #777;
+        --primary: #111827;
+        --primary-text: #fff;
+        font-family: "Inter", system-ui, sans-serif;
+      }
+      body {
+        margin: 0;
+        background: #fafafa;
+        color: #111;
+      }
+      .screen {
+        max-width: 520px;
+        margin: 0 auto;
+        padding: 16px;
+      }
+      .title {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 16px;
+      }
+      .label {
+        font-weight: 600;
+        margin: 14px 0 6px;
+      }
+      .input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        font-size: 16px;
+        box-sizing: border-box;
+      }
+      .btn {
+        width: 100%;
+        margin-top: 20px;
+        padding: 14px;
+        background: var(--primary);
+        color: var(--primary-text);
+        border: none;
+        border-radius: 12px;
+        font-size: 18px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s ease;
+      }
+      .btn:hover {
+        background: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="screen">
+      <div class="title">Editar Dirección</div>
+
+      <form id="direccionForm">
+        <!-- País -->
+        <div class="label">País/región</div>
+        <select>
+          <option selected>Chile</option>
+          <option>Argentina</option>
+          <option>Perú</option>
+          <option>Colombia</option>
+        </select>
+
+        <!-- Dirección -->
+        <div class="label">Dirección</div>
+        <input
+          class="input"
+          type="text"
+          value="Antonio Varas 666"
+          placeholder="Calle y número"
+        />
+        <input
+          class="input"
+          type="text"
+          placeholder="Apto., suite, unidad (opcional)"
+        />
+
+        <!-- Región -->
+        <div class="label">Región</div>
+        <select>
+          <option selected>Metropolitana de Santiago</option>
+          <option>Valparaíso</option>
+          <option>Biobío</option>
+          <option>Antofagasta</option>
+        </select>
+
+        <!-- Ciudad -->
+        <div class="label">Ciudad</div>
+        <select>
+          <option selected>Providencia</option>
+          <option>Santiago Centro</option>
+          <option>Las Condes</option>
+          <option>Ñuñoa</option>
+        </select>
+
+        <!-- Código postal -->
+        <div class="label">Código postal</div>
+        <input class="input" type="text" value="7500000" />
+
+        <!-- Aduanas -->
+        <div class="label">Información para aduanas</div>
+        <textarea
+          class="input"
+          rows="3"
+          placeholder="Escribe aquí si necesitas dar detalles adicionales"
+        ></textarea>
+
+        <!-- Botón -->
+        <button type="submit" class="btn">Guardar configuración</button>
+      </form>
+    </div>
+
+    <script>
+      // Captura el clic del botón (submit del formulario)
+      document
+        .getElementById("direccionForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Evita recargar la página
+          alert("✅ Dirección guardada correctamente");
+          location.href = "F_Direccion.html"; // ✅ CORREGIDO
+        });
+    </script>
+  </body>
+</html>

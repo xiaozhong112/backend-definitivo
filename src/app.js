@@ -26,6 +26,10 @@ app.use("/imgs", express.static(path.join(__dirname, "../frontend/img")));
 
 app.get("/health", (_req,res)=> res.json({ ok: true }));
 
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend", "Frontend.html"));
+});
+
 app.use("/api/auth", authRoutes);
 app.use("/api/productos", productosRoutes);
 app.use("/api/usuarios", usuariosRoutes);
